@@ -1,0 +1,13 @@
+name: ci
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  ci:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      # The suite: urllib3 must stay pinned, so a urllib3 bump fails and a requests bump passes.
+      - run: grep -qx 'urllib3==1.24.3' requirements.txt
